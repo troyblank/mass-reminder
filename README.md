@@ -12,7 +12,7 @@
 
 ##How to setup list configuration
 
-Be sure to copy the example config and then replace it with an actual list of reminders to send out.
+Be sure to copy the example config and then replace it with a calender and an actual list emails to send reminders to.
 
     cp config.example.json config.json
     
