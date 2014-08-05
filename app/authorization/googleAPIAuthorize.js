@@ -2,16 +2,16 @@ var fs = require('fs');
 var googleapis = require('googleapis');
 var mkdirp = require('mkdirp');
 
-var authData = require("./auth.config");
+var config = require("../../config");
 
 //THIS ALLOWS SERVER TO SERVER AUTHENTICATION VIA A JWT GOOGLE API KEY
 var googleAPIAuthorize = {
 
     jwt: new googleapis.auth.JWT(
-        authData.email,
-        authData.keyFile,
-        authData.key,
-        authData.scopes
+        config.api.email,
+        config.api.keyFile,
+        config.api.key,
+        config.api.scopes
     ),
 
     tokenStorePath: '/data/',

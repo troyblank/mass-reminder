@@ -5,16 +5,15 @@
 * From here convert it to a pem key by running:
 
         openssl pkcs12 -in in.p12 -out google_api_key.pem -nocerts -nodes
-        
-* Now you need to make a new auth.config from the example file and fill it out
+       
+* Place the pem file in the app/authorization folder.
+* Now you need to make a new config from the example file and fill it out the api section
 
-        cp app/authorization/auth.config.example.json app/authorization/auth.config.json
+        cp config.example.json config.json
 
 ##How to setup list configuration
 
-Be sure to copy the example config and then replace it with a calender and an actual list emails to send reminders to.
-
-    cp config.example.json config.json
+In the config file there is dummy data for lists be sure to replace it with a calenderId and an actual list emails to send reminders to. You can add as many lists as you want to this array.
     
 The calendarId can be found in the settings of your google calender. Please be sure to also share the calender with the email found in your auth.config.json file.
        

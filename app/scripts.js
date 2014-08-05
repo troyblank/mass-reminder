@@ -13,7 +13,7 @@ var scripts = {
     },
 
     getEmailLists: function() {
-        scripts.lists = JSON.parse(fs.readFileSync('config.json'));
+        scripts.lists = JSON.parse(fs.readFileSync('config.json')).lists;
         scripts.getCalenderEvents();
     },
 
