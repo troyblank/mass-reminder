@@ -9,6 +9,14 @@
 * Now you need to make a new auth.config from the example file and fill it out
 
         cp app/authorization/auth.config.example.json app/authorization/auth.config.json
+
+##How to setup list configuration
+
+Be sure to copy the example config and then replace it with an actual list of reminders to send out.
+
+    cp config.example.json config.json
+    
+The calendarId can be found in the settings of your google calender. Please be sure to also share the calender with the email found in your auth.config.json file.
        
 ## License
 

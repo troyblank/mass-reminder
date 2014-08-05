@@ -1,19 +1,35 @@
+var fs = require('fs');
 var googleapis = require('googleapis');
 
 var emailSender = require('./emailSender')
 var googleAPIAuthorize = require('./authorization/googleAPIAuthorize');
 
 var scripts = {
+
+    lists: null,
+
     authorize: function() {
-        googleAPIAuthorize.authorize(scripts.getCalenderEvents);
+        googleAPIAuthorize.authorize(scripts.getEmailLists);
+    },
+
+    getEmailLists: function() {
+        scripts.lists = JSON.parse(fs.readFileSync('config.json'));
+        scripts.getCalenderEvents();
     },
 
     getCalenderEvents: function() {
-        //need to build something that gets data from json to use to check calenders.
+        var i = scripts.lists.length - 1;
+        while (i >= 0) {
+            scripts.getCalenderEvent(scripts.lists[i]);
+            i--;
+        }
+    },
+
+    getCalenderEvent: function(list) {
         var cal = googleapis.calendar('v3');
 
         cal.events.list({
-            calendarId: 'troyblank.com_1hkegmq84hbvrgr79mc2p3n2b8@group.calendar.google.com',
+            calendarId: list.calendarId,
             maxResults: 5
         }, function(err, data) {
             emailSender.checkForSend(data);

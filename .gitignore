@@ -20,6 +20,7 @@ npm-debug.log
 ehthumbs.db
 Thumbs.db
 
+config.json
 app/authorization/auth.config.json
 app/authorization/google_api_key.pem
 app/authorization/data

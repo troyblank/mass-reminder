@@ -1,0 +1,9 @@
+[{
+    "title": "Some List",
+    "calendarId": "example.com_1xxxxxxx8@group.calendar.google.com",
+    "emails": [
+        "Ron Berg <ron@berg.com>",
+        "Chris <chrisboy@chrisland.com>",
+        "<stuff@example.com>"
+    ]
+}]
