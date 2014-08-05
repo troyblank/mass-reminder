@@ -1,7 +1,7 @@
 #Mass Reminder
 
 ##How to setup server to server authorization.
-* Using [Google Developer Console](https://console.developers.google.com/, 'Google Developer Console') download a P12 key.
+* Using [Google Developer Console](https://console.developers.google.com/ 'Google Developer Console') download a P12 key.
 * From here convert it to a pem key by running:
 
         openssl pkcs12 -in in.p12 -out google_api_key.pem -nocerts -nodes
