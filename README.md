@@ -4,7 +4,7 @@
 * Using [Google Developer Console](https://console.developers.google.com/, 'Google Developer Console') download a P12 key.
 * From here convert it to a pem key by running:
 
-        openssl pkcs12 -in 'in.p12' -out google_api_key.pem -nocerts -nodes
+        openssl pkcs12 -in in.p12 -out google_api_key.pem -nocerts -nodes
         
 * Now you need to make a new auth.config from the example file and fill it out
 
