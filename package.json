@@ -1,0 +1,14 @@
+{
+    "name": "massReminder",
+    "version": "1.0.0",
+    "main": "app/scripts.js",
+    "scripts": {
+        "test": "echo \"Error: no text specified\" && exit 1"
+    },
+    "devDependencies": {
+        "googleapis": "1.0.4",
+        "mkdirp": "0.5.0"
+    },
+    "author": "Troy Blank",
+    "license": "BSD-3-Clause"
+}
