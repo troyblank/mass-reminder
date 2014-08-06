@@ -2,12 +2,18 @@
     "lists": [{
         "subject": "some group reminder",
         "calendarId": "example.com_1xxxxxxx8@group.calendar.google.com",
+        "reminderDelayInDays": 0,
         "emails": [
             "Ron Berg <ron@bexample.com>",
             "Chris <chrisboy@example.com>",
             "<stuff@example.com>"
-        ]
+        ],
+        "footerText": "If you can not make it please reply all and let the team know."
     }],
+    "emailSender": {
+        "user": "automation@example.com",
+        "pass": "somepassword"
+    },
     "api": {
         "email": "287.......................................ron@developer.gserviceaccount.com",
         "keyFile": "./app/authorization/google_api_key.pem",

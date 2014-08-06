@@ -1,11 +1,13 @@
 var prettyDate = {
     beautify: function(date) {
-        console.log(date)
         var time = prettyDate.formatTimeToAMPM(date.getHours(), date.getMinutes());
         var weekDay = prettyDate.getDayName(date.getDay());
         var day = prettyDate.getOrdinalDay(date.getDate());
         var month = prettyDate.getMonthName(date.getMonth());
-        return time + ' on ' + weekDay + ' the ' + day + ' of ' + month;
+        return {
+            'html': '<font size="6">' + time + '</font> on ' + weekDay + ' the ' + day + ' of ' + month,
+            'plain': time + '</font> on ' + weekDay + ' the ' + day + ' of ' + month
+        };
     },
 
     getDayName: function(day) {

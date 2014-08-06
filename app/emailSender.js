@@ -1,8 +1,20 @@
+var btoa = require('btoa');
 var googleapis = require('googleapis');
+var nodemailer = require('nodemailer');
+
+var config = require('../config.json')
 var prettyDate = require('./util/prettyDate');
 
 //all checks are based on granularity a once a day run.
 var emailSender = {
+
+    transporter: nodemailer.createTransport({
+        service: 'Gmail',
+        auth: {
+            user: config.emailSender.user,
+            pass: config.emailSender.pass
+        }
+    }),
 
     //probably should make this dynamic
     REMIND_DELAY_IN_DAYS: 6,
@@ -10,28 +22,45 @@ var emailSender = {
     checkForSend: function(list, calender) {
         for (var i = 0; i < calender.items.length; i++) {
             var node = calender.items[i];
-            if (emailSender.dateIsInRange(new Date(node.start.dateTime).getTime())) {
-                //emailSender.getEventAndSend(list, node.id);
+            if (emailSender.dateIsInRange(new Date(node.start.dateTime).getTime(), list.reminderDelayInDays)) {
                 emailSender.sendReminder(list, node);
             }
         }
     },
 
     sendReminder: function(list, node) {
-        console.log(node)
         var startTime = prettyDate.beautify(new Date(node.start.dateTime));;
+        var body = node.summary + ' at ' + startTime.html + '.';
+        var body_plain = node.summary + ' at ' + startTime.plain + '.';
 
-        var subject = list.subject;
-        var body = node.summary + ' at ' + startTime;
-        var emails = list.emails;
+        if (node.description) {
+            body += '<br/><br/>' + node.description;
+            body_plain += '\r\n\r\n' + node.description;
+        }
 
-        console.log(body);
+        body += '<br/><br/>' + list.footerText;
+        body_plain += '\r\n\r\n' + list.footerText;
+
+        var mailOptions = {
+            to: list.emails.toString(),
+            subject: list.subject,
+            text: body_plain,
+            html: body
+        };
+
+        emailSender.transporter.sendMail(mailOptions, function(error, data) {
+            if (error) {
+                console.log(error);
+            } else {
+                console.log('Message sent: ' + data.response);
+            }
+        });
     },
 
-    dateIsInRange: function(eventTime) {
+    dateIsInRange: function(eventTime, delay) {
         var reminderRangeStart = new Date();
         var reminderRangeEnd = new Date();
-        reminderRangeStart.setDate(reminderRangeStart.getDate() + emailSender.REMIND_DELAY_IN_DAYS);
+        reminderRangeStart.setDate(reminderRangeStart.getDate() + delay);
         reminderRangeEnd.setDate(reminderRangeStart.getDate() + 1);
 
         if (eventTime > reminderRangeStart.getTime() && eventTime < reminderRangeEnd.getTime()) {
@@ -39,23 +68,7 @@ var emailSender = {
         } else {
             return false;
         }
-    },
-
-    // getEventAndSend: function(list, eventID) {
-    //     //console.log(calID + ' : ' + eventID)
-    //     var cal = googleapis.calendar('v3');
-
-    //     cal.events.get({
-    //         'calendarId': list.calendarId,
-    //         'eventId': eventID
-    //     }, function(err, data) {
-    //         if (err == null) {
-    //             console.log(data);
-    //         } else {
-    //             console.log(err)
-    //         }
-    //     });
-    // },
+    }
 }
 
 module.exports = emailSender;
