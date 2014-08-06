@@ -1,5 +1,7 @@
 #Mass Reminder
 
+This app uses a google calender and sends out a reminder emails to a group of people if that date is within a range. Currently this range is only as granular as one day, so only set it to run once a day.
+
 ##How to setup server to server authorization.
 * Using [Google Developer Console](https://console.developers.google.com/ 'Google Developer Console') download a P12 key.
 * From here convert it to a pem key by running:

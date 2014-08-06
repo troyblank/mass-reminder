@@ -1,19 +1,21 @@
 var fs = require('fs');
 var googleapis = require('googleapis');
 
-var emailSender = require('./emailSender')
+var config = require('../config.json')
+var emailSender = require('./emailSender');
 var googleAPIAuthorize = require('./authorization/googleAPIAuthorize');
 
 var scripts = {
 
     lists: null,
+    MAX_EVENT_RETURNS: 3,
 
     authorize: function() {
         googleAPIAuthorize.authorize(scripts.getEmailLists);
     },
 
     getEmailLists: function() {
-        scripts.lists = JSON.parse(fs.readFileSync('config.json')).lists;
+        scripts.lists = config.lists;
         scripts.getCalenderEvents();
     },
 
@@ -29,10 +31,14 @@ var scripts = {
         var cal = googleapis.calendar('v3');
 
         cal.events.list({
-            calendarId: list.calendarId,
-            maxResults: 5
+            'calendarId': list.calendarId,
+            'maxResults': scripts.MAX_EVENT_RETURNS
         }, function(err, data) {
-            emailSender.checkForSend(data);
+            if (err == null) {
+                emailSender.checkForSend(list, data);
+            } else {
+                console.log(err)
+            }
         });
     }
 }

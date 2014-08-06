@@ -1,15 +1,13 @@
 {
-    "lists": [
-        {
-            "title": "Some List",
-            "calendarId": "example.com_1xxxxxxx8@group.calendar.google.com",
-            "emails": [
-                "Ron Berg <ron@bexample.com>",
-                "Chris <chrisboy@example.com>",
-                "<stuff@example.com>"
-            ]
-        }
-    ],
+    "lists": [{
+        "subject": "some group reminder",
+        "calendarId": "example.com_1xxxxxxx8@group.calendar.google.com",
+        "emails": [
+            "Ron Berg <ron@bexample.com>",
+            "Chris <chrisboy@example.com>",
+            "<stuff@example.com>"
+        ]
+    }],
     "api": {
         "email": "287.......................................ron@developer.gserviceaccount.com",
         "keyFile": "./app/authorization/google_api_key.pem",
