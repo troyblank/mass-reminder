@@ -16,9 +16,6 @@ var emailSender = {
         }
     }),
 
-    //probably should make this dynamic
-    REMIND_DELAY_IN_DAYS: 6,
-
     checkForSend: function(list, calender) {
         for (var i = 0; i < calender.items.length; i++) {
             var node = calender.items[i];
