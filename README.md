@@ -18,6 +18,16 @@ This app uses a google calender and sends out a reminder emails to a group of pe
 In the config file there is dummy data for lists be sure to replace it with a calenderId and an actual list emails to send reminders to. You can add as many lists as you want to this array.
     
 The calendarId can be found in the settings of your google calender. Please be sure to also share the calender with the email found in your auth.config.json file.
+
+##Deployment
+
+You will want to run scripts.js regularly in a cron tab so run
+
+    sudo crontab -e
+    
+And add the following to run the check everyday at 10:30am
+
+    30 10 * * * /usr/sbin/node /home/troy/tasks/mass-reminder/app/scripts.js
        
 ## License
 
