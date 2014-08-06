@@ -7,6 +7,8 @@ var config = require("../../config");
 //THIS ALLOWS SERVER TO SERVER AUTHENTICATION VIA A JWT GOOGLE API KEY
 var googleAPIAuthorize = {
 
+    EXPIRE_HOURS: 1,
+
     jwt: new googleapis.auth.JWT(
         config.api.email,
         config.api.keyFile,
@@ -66,10 +68,13 @@ var googleAPIAuthorize = {
                 return;
             }
 
+            //the expiry_date returned by Google seems wrong, so here we are setting our own.
+            var expiryDate = new Date();
+            expiryDate.setHours(expiryDate.getHours() + googleAPIAuthorize.EXPIRE_HOURS);
             googleAPIAuthorize.storeToken({
                 'access_token': googleAPIAuthorize.jwt.credentials.access_token,
                 'refresh_token': googleAPIAuthorize.jwt.credentials.refresh_token,
-                'expiry_date': googleAPIAuthorize.jwt.credentials.expiry_date
+                'expiry_date': expiryDate.getTime()
             });
 
             googleAPIAuthorize.setCredentials(googleAPIAuthorize.jwt.credentials.access_token, googleAPIAuthorize.jwt.credentials.refresh_token);
