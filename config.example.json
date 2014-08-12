@@ -16,7 +16,7 @@
     },
     "api": {
         "email": "287.......................................ron@developer.gserviceaccount.com",
-        "keyFile": "./app/authorization/google_api_key.pem",
+        "keyFile": "/google_api_key.pem",
         "key": null,
         "scopes": [
             "https://www.googleapis.com/auth/calendar"

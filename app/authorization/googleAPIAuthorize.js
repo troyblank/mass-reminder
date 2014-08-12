@@ -11,7 +11,7 @@ var googleAPIAuthorize = {
 
     jwt: new googleapis.auth.JWT(
         config.api.email,
-        config.api.keyFile,
+        __dirname + config.api.keyFile,
         config.api.key,
         config.api.scopes
     ),
