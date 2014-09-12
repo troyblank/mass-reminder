@@ -32,8 +32,11 @@ var scripts = {
 
         cal.events.list({
             'calendarId': list.calendarId,
+            'timeMin': new Date().toISOString(),
             'maxResults': scripts.MAX_EVENT_RETURNS,
-            'timeMin': new Date().toISOString()
+            'showDeleted': false,
+            'singleEvents': true,
+            'orderBy': 'startTime'
         }, function(err, data) {
             if (err == null) {
                 emailSender.checkForSend(list, data);

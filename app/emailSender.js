@@ -8,6 +8,8 @@ var prettyDate = require('./util/prettyDate');
 //all checks are based on granularity a once a day run.
 var emailSender = {
 
+	IS_DESCRIPTION_ONLY: '::onlyDescription::',
+
 	transporter: nodemailer.createTransport({
 		service: 'Gmail',
 		auth: {
@@ -19,29 +21,38 @@ var emailSender = {
 	checkForSend: function(list, calender) {
 		for (var i = 0; i < calender.items.length; i++) {
 			var node = calender.items[i];
-			if (emailSender.dateIsInRange(new Date(node.start.dateTime).getTime(), list.reminderDelayInDays)) {
+			if (node.start != undefined && emailSender.dateIsInRange(new Date(node.start.dateTime).getTime(), list.reminderDelayInDays)) {
 				emailSender.sendReminder(list, node);
 			}
 		}
 	},
 
 	sendReminder: function(list, node) {
-		var startTime = prettyDate.beautify(new Date(node.start.dateTime));;
-		var body = node.summary + ' at ' + startTime.html + '.';
-		var body_plain = node.summary + ' at ' + startTime.plain + '.';
+		var isDescriptionOnly = emailSender.isDescriptionOnly(node);
 
-		if (node.location) {
-			body += '<br/>Location: ' + node.location
-			body_plain += '\r\nLocation:' + node.location;
+		var startTime = prettyDate.beautify(new Date(node.start.dateTime));
+		var body = node.summary;
+		var body_plain = node.summary;
+
+		if (!isDescriptionOnly) {
+			body += ' at ' + startTime.html + '.';
+			body_plain += ' at ' + startTime.plain + '.';
+
+			if (node.location) {
+				body += '<br/>Location: ' + node.location
+				body_plain += '\r\nLocation:' + node.location;
+			}
 		}
 
 		if (node.description) {
-			body += '<br/><br/>' + node.description;
-			body_plain += '\r\n\r\n' + node.description;
+			body += '<br/><br/>' + node.description.replace(emailSender.IS_DESCRIPTION_ONLY, '');
+			body_plain += '\r\n\r\n' + node.description.replace(emailSender.IS_DESCRIPTION_ONLY, '');
 		}
 
-		body += '<br/><br/>' + list.footerText;
-		body_plain += '\r\n\r\n' + list.footerText;
+		if (!isDescriptionOnly) {
+			body += '<br/><br/>' + list.footerText;
+			body_plain += '\r\n\r\n' + list.footerText;
+		}
 
 		var mailOptions = {
 			to: list.emails.toString(),
@@ -57,6 +68,15 @@ var emailSender = {
 				console.log('Message sent: ' + data.response);
 			}
 		});
+	},
+
+	isDescriptionOnly: function(node) {
+		if (node.description) {
+			if (node.description.indexOf(emailSender.IS_DESCRIPTION_ONLY) >= 0) {
+				return true;
+			}
+		}
+		return false;
 	},
 
 	dateIsInRange: function(eventTime, delay) {

@@ -29,7 +29,15 @@ And add the following to run the check everyday at 10:30am
 
     30 10 * * * /usr/sbin/node /home/troy/tasks/mass-reminder/app/scripts.js
        
-## License
+##Calender Options
+
+By adding
+
+    ::onlyDescription::
+    
+to any calender description you will remove all time, location, and footer text information leaving Title and description only.
+       
+##License
 
 (The MIT License)
 
