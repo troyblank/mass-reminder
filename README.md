@@ -36,6 +36,12 @@ By adding
     ::onlyDescription::
     
 to any calender description you will remove all time, location, and footer text information leaving Title and description only.
+
+##Trouble Shooting
+
+Sometimes Google API gives a invalid_grant error on a linux server; to fix this you must sync your clock
+
+    sudo ntpdate -s time.nist.gov
        
 ##License
 
