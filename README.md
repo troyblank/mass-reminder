@@ -27,6 +27,7 @@ You will want to run scripts.js regularly in a cron tab so run
     
 And add the following to run the check everyday at 10:30am
 
+    0 0 * * 0 /usr/sbin/ntpdate -s time.nist.gov
     30 10 * * * /usr/sbin/node /home/troy/tasks/mass-reminder/app/scripts.js
        
 ##Calender Options
@@ -39,7 +40,7 @@ to any calender description you will remove all time, location, and footer text 
 
 ##Trouble Shooting
 
-Sometimes Google API gives a invalid_grant error on a linux server; to fix this you must sync your clock
+Sometimes, if you are not syncing your clock with the above cron job, Google API gives a invalid_grant error on a linux server; to fix this you must sync your clock.
 
     sudo ntpdate -s time.nist.gov
        
