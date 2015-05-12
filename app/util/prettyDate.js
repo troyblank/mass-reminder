@@ -36,6 +36,9 @@ var prettyDate = {
         hrs = hrs % 12;
         //the hour '0' should be '12'
         hrs = hrs ? hrs : 12;
+        if(String(mins).length == 1){
+            mins = '0' + mins;
+        }
         return hrs + ':' + mins + ' ' + ampm;
     },
 
