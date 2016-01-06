@@ -4,6 +4,7 @@ This app uses a google calender and sends out a reminder emails to a group of pe
 
 ## Requirements
 * Node >= 4.2.4
+* ntpdate > - 4.2.6
 
 ## Setup
 To install dependencies you want to do is install all node packages run:
