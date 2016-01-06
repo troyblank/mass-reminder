@@ -20,11 +20,13 @@ var emailSender = {
 
 	checkForSend: function(list, calender) {
 		for (var i = 0; i < calender.items.length; i++) {
-			var node = calender.items[i];
-			if (node.start != undefined && emailSender.dateIsInRange(new Date(node.start.dateTime).getTime(), list.reminderDelayInDays)) {
+			var node = calender.items[i],
+				startTime = new Date(node.start.dateTime);
+
+			if (node.start != undefined && emailSender.dateIsInRange(startTime.getTime(), list.reminderDelayInDays)) {
 				emailSender.sendReminder(list, node);
 			} else {
-				console.log('No dates in range: ' + list.subject);
+				console.log('\nDate found but is not in range: ' + list.subject + '\n' + startTime + ' ('+list.reminderDelayInDays+' day delay)');
 			}
 		}
 	},
