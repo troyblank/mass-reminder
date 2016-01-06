@@ -33,10 +33,10 @@ You will want to run scripts.js regularly in a cron tab so run
 
     sudo crontab -e
     
-And add the following to run the check everyday at 10:30am
+And add the following to run the check everyday at 10:30am (where "/home/troy/task/mass-reminder" is the location of your mass reminder app)
 
     0 0 * * 0 /usr/sbin/ntpdate -s time.nist.gov
-    30 10 * * * /usr/sbin/node /home/troy/tasks/mass-reminder/app/scripts.js
+    30 10 * * * /usr/bin/node /home/troy/tasks/mass-reminder/app/scripts.js
        
 ##Calender Options
 

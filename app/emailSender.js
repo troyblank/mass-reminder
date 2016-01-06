@@ -23,6 +23,8 @@ var emailSender = {
 			var node = calender.items[i];
 			if (node.start != undefined && emailSender.dateIsInRange(new Date(node.start.dateTime).getTime(), list.reminderDelayInDays)) {
 				emailSender.sendReminder(list, node);
+			} else {
+				console.log('No dates in range: ' + list.subject);
 			}
 		}
 	},
